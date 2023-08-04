@@ -16,10 +16,10 @@ environment {
         }
         stage('SonarQube analysis') {
             environment {
-              scannerHome = tool 'dp1'
+              scannerHome = tool 'shiva-dp1'
             }
         steps {
-         withSonarQubeEnv('dp1') { // If you have configured more than one global server connection, you can specify its name
+         withSonarQubeEnv('shiva-dp1') { // If you have configured more than one global server connection, you can specify its name
          sh "${scannerHome}/bin/sonar-scanner"
          }
 
