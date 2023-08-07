@@ -24,7 +24,6 @@ environment {
                 echo "------------- UNIT TEST ENDED -------------"
             }
         }
-        
         stage('SonarQube analysis') {
             environment {
               scannerHome = tool 'shiva-dp1'
@@ -35,8 +34,10 @@ environment {
          sh "${scannerHome}/bin/sonar-scanner"
          }
 
+         echo "------------- SONAR ENDED -------------"
+
     }
-    echo "------------- SONAR ENDED -------------"
+    
   }
     }
 }
