@@ -1,4 +1,6 @@
 def registry = 'https://shiva22.jfrog.io'
+def imageName = 'shiva22.jfrog.io/shiva-docker-local/ttrend'
+def version   = '2.0.2'
 pipeline {
     agent {
         node {
@@ -78,6 +80,28 @@ environment {
             
             }
         }   
-    }   
+    }
+
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+    stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'artifactory-token'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
+
     }
 }
